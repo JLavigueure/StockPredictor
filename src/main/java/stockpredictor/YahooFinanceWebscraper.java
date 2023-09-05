@@ -29,14 +29,16 @@ public class YahooFinanceWebscraper extends Webscraper{
 		for(Element row : table.select("tr")) {
 			Elements data = row.select("td").select("span");
 			//date, open, high, low, close, adjclose, volume
-			if(data.text().equals("") || !isDate(data.get(0).text())) continue;
+			if(data.text().equals("") || !isDate(data.get(0).text()) || data.get(1).text().contains("Dividend")) continue;
 			LocalDate date = parseDateField(data.get(0).text());
 			double open = Double.valueOf(data.get(1).text());
 			double high = Double.valueOf(data.get(2).text());
 			double low = Double.valueOf(data.get(3).text());
 			double close = Double.valueOf(data.get(4).text());
 			double adjClose = Double.valueOf(data.get(5).text());
-			int volume = Integer.valueOf(data.get(6).text().replace(",", ""));
+			int volume = 0;
+			if(data.size() >= 7) 
+				volume = Integer.valueOf(data.get(6).text().replace(",", ""));
 			stock.addDay(new StockDay(date, open, high, low, close, adjClose, volume));
 		}
 		return stock;
