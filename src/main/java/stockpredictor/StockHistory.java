@@ -69,6 +69,7 @@ public class StockHistory {
 		return out;
 	}
 	
+	//Returns a new StockHistory obj containing only the past x days
 	public StockHistory getPastXDays(int x) {
 		return new StockHistory(history.subList(0, x));
 	}
@@ -81,6 +82,7 @@ public class StockHistory {
 		return getPastXDays(5);
 	}
 	
+	//Returns a new StockHistory obj containing data 
 	public StockHistory getPastDaysUntil(LocalDate date) {
 		if(history.isEmpty()) return null;
 		ArrayList<StockDay> out = new ArrayList<>();
