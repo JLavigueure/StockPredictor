@@ -42,7 +42,7 @@ public class YahooFinanceWebscraper extends Webscraper{
 	
 	//--- Utilities ---
 	public String getUrl() {
-		return getUrl(ticker);
+		return super.getUrl();
 	}
 	public static String getUrl(String ticker) {
 		return "https://finance.yahoo.com/quote/" + ticker +"/history";
