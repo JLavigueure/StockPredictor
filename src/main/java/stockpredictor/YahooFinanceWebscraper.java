@@ -22,7 +22,7 @@ public class YahooFinanceWebscraper extends Webscraper{
 	
 	//Scrapes Yahoo Finance history tab of given ticker
 	public StockHistory getHistory() {
-		StockHistory stock = new StockHistory();
+		StockHistory stock = new StockHistory(ticker);
 		Document doc = super.getDocument();		
 		//select table from html
 		Elements table = doc.select("table[data-test=historical-prices]");

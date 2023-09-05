@@ -6,17 +6,23 @@ import java.util.List;
 
 public class StockHistory {
 	private List<StockDay> history;
+	private String ticker;
 	
 	//--- Constructors ---
-	public StockHistory() {
-		history = new ArrayList<>();
+	public StockHistory(String ticker) {
+		this(ticker, new ArrayList<StockDay>());
 	}
 	
-	public StockHistory(List<StockDay> days) {
+	public StockHistory(String ticker, List<StockDay> days) {
 		history = days;
+		this.ticker = ticker;
 	}
 	
 	//--- Accessors ---
+	public String getTicker() {
+		return ticker;
+	}
+	
 	public List<StockDay> getHistory() {
 		return history;
 	}
@@ -71,7 +77,7 @@ public class StockHistory {
 	
 	//Returns a new StockHistory obj containing only the past x days
 	public StockHistory getPastXDays(int x) {
-		return new StockHistory(history.subList(0, x));
+		return new StockHistory(ticker, history.subList(0, x));
 	}
 	
 	public StockHistory getPast3Days() {
@@ -92,7 +98,7 @@ public class StockHistory {
 			out.add(day);
 			day = history.get(i++);
 		}
-		return new StockHistory(out);
+		return new StockHistory(ticker, out);
 	}
 	
 	public StockHistory getPastWeek() {
@@ -107,6 +113,10 @@ public class StockHistory {
 		return getPastDaysUntil(LocalDate.now().minusMonths(3));
 	}
 
+	public boolean isEmpty() {
+		return history.isEmpty();
+	}
+	
 	public String toString() {
 		StringBuilder out = new StringBuilder();
 		out.append(toStringHeader());
