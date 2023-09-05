@@ -44,6 +44,17 @@ public class StockDay {
 	public int getVolume() {
 		return volume;
 	}
+
+	public String toString() {
+		String space = "  ";
+		return date.toString() 
+				+ space + String.format("%06f", open) 
+				+ space + String.format("%06f", high)
+				+ space + String.format("%06f", low) 
+				+ space + String.format("%06f", close) 
+				+ space + String.format("%06f", adjClose) 
+				+ space + String.format("%,d", volume) ;
+	}
 	
 	//--- Modifiers ---
 	public void setOpen(double open) {
