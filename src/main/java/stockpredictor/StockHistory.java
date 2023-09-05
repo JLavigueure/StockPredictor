@@ -1,5 +1,6 @@
 package stockpredictor;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,10 @@ public class StockHistory {
 	//--- Constructors ---
 	public StockHistory() {
 		history = new ArrayList<>();
+	}
+	
+	public StockHistory(List<StockDay> days) {
+		history = days;
 	}
 	
 	//--- Accessors ---
@@ -62,6 +67,54 @@ public class StockHistory {
 			out.add(day.getVolume());
 		}
 		return out;
+	}
+	
+	public StockHistory getPastXDays(int x) {
+		return new StockHistory(history.subList(0, x));
+	}
+	
+	public StockHistory getPast3Days() {
+		return getPastXDays(3);
+	}
+	
+	public StockHistory getPast5Days() {
+		return getPastXDays(5);
+	}
+	
+	public StockHistory getPastDaysUntil(LocalDate date) {
+		if(history.isEmpty()) return null;
+		ArrayList<StockDay> out = new ArrayList<>();
+		int i = 0;
+		StockDay day = history.get(i++);
+		while(date.isBefore(day.getDate())) {
+			out.add(day);
+			day = history.get(i++);
+		}
+		return new StockHistory(out);
+	}
+	
+	public StockHistory getPastWeek() {
+		return getPastDaysUntil(LocalDate.now().minusWeeks(1));
+	}
+	
+	public StockHistory getPastMonth() {
+		return getPastDaysUntil(LocalDate.now().minusMonths(1));
+	}
+	
+	public StockHistory getPast3Months() {
+		return getPastDaysUntil(LocalDate.now().minusMonths(3));
+	}
+
+	public String toString() {
+		StringBuilder out = new StringBuilder();
+		out.append(toStringHeader());
+		for(StockDay day : history) 
+			out.append(day + "\n");
+		return out.toString();
+	}
+	
+	public String toStringHeader() {
+		return "   Date        Open        High        Low        Close     Adj.Close    Volume\n";
 	}
 	
 	//--- Modifiers ---
