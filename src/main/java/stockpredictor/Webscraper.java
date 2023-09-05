@@ -15,7 +15,8 @@ public abstract class Webscraper {
 	public String getUrl() {
 		return this.URL;
 	}
-		
+	
+	//returns document from url
 	public Document getDocument(){
 		try {
 			return Jsoup.connect(URL).get();

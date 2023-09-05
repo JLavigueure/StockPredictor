@@ -20,6 +20,7 @@ public class YahooFinanceWebscraper extends Webscraper{
 		return ticker;
 	}
 	
+	//Scrapes Yahoo Finance history tab of given ticker
 	public StockHistory getHistory() {
 		StockHistory stock = new StockHistory();
 		Document doc = super.getDocument();		
@@ -45,15 +46,19 @@ public class YahooFinanceWebscraper extends Webscraper{
 	}
 	
 	//--- Utilities ---
+	
+	//generates url for given ticker
 	public static String getUrl(String ticker) {
 		return "https://finance.yahoo.com/quote/" + ticker +"/history";
 	}
 	
+	//Checks to see if first column in row on yahoo finance is of date format
 	private boolean isDate(String string) {
 		String[] parts = string.split(" ");
 		return (parts[0].matches("Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec"));
 	}
 	
+	//Takes the date from Yahoo Finance history row and returns LocalDate obj equivalent
 	private LocalDate parseDateField(String date) {
 		//incoming string format: Sep 01, 2023
 		String[] parts = date.split(" ");
