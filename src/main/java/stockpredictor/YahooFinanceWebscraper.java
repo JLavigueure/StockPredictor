@@ -16,6 +16,10 @@ public class YahooFinanceWebscraper extends Webscraper{
 	}
 	
 	//--- Accessors ---
+	public String getTicker() {
+		return ticker;
+	}
+	
 	public StockHistory getHistory() {
 		StockHistory stock = new StockHistory();
 		Document doc = super.getDocument();		
@@ -39,9 +43,6 @@ public class YahooFinanceWebscraper extends Webscraper{
 	}
 	
 	//--- Utilities ---
-	public String getUrl() {
-		return super.getUrl();
-	}
 	public static String getUrl(String ticker) {
 		return "https://finance.yahoo.com/quote/" + ticker +"/history";
 	}
