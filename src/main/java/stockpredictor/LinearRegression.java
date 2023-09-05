@@ -17,6 +17,19 @@ public class LinearRegression {
 		this.rSqrd = rSqrd;
 	}
 	
+	public double getSlope() {
+		return slope;
+	}
+	public double getYIntercept() {
+		return yIntercept;
+	}
+	public double getMse() {
+		return mse;
+	}
+	public double getRSquared() {
+		return rSqrd;
+	}
+	
 	//Returns LinearRegression object of given y values, and x values incrementing by 1.
 	public static LinearRegression calculate(List<Double> yValues) {
 		//init matrices
@@ -67,13 +80,14 @@ public class LinearRegression {
 	
 	//Returns the Mean squared error of given model (y=mx+b) and actual values
 	private static double MeanSquaredError(double m, double b, List<Double> values) {
-		int sum = 0;
+		double sum = 0;
 		for(int i = 0; i < values.size(); i++) {
 			//get predicted value
-			double yHat = m*i + b;
+			double yHat = m*i + b;	
 			//get acutal value
 			double y = values.get(i);
-			sum += Math.pow((y - yHat), 2);
+			double delta = y - yHat;
+			sum += delta*delta;
 		}
 		return sum / values.size();
 	}
@@ -86,5 +100,15 @@ public class LinearRegression {
 	//Returns linear regression, r squared and Mean squared error
 	public String toStringFullInfo() {
 		return toString() + "\nMean Squared Error: " + mse + ", R-Squared: " + rSqrd;
+	}
+	
+	public boolean equals(Object o) {
+		if(o == this) return true;
+		if(!(o instanceof LinearRegression)) return false;
+		LinearRegression b = (LinearRegression) o;
+		return (this.slope == b.slope 
+				&& this.yIntercept == b.yIntercept 
+				&& this.mse == b.mse 
+				&& this.rSqrd == b.rSqrd);	
 	}
 }
