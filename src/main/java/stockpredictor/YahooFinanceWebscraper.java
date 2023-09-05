@@ -21,7 +21,6 @@ public class YahooFinanceWebscraper extends Webscraper{
 		Document doc = super.getDocument();		
 		//select table from html
 		Elements table = doc.select("table[data-test=historical-prices]");
-		Element tableBody = table.select("tbody").get(0);
 		//go through each row
 		for(Element row : table.select("tr")) {
 			Elements data = row.select("td").select("span");
@@ -36,7 +35,6 @@ public class YahooFinanceWebscraper extends Webscraper{
 			int volume = Integer.valueOf(data.get(6).text().replace(",", ""));
 			stock.addDay(new StockDay(date, open, high, low, close, adjClose, volume));
 		}
-		//TODO - complete method
 		return stock;
 	}
 	
