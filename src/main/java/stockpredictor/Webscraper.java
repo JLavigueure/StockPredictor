@@ -1,6 +1,7 @@
 package stockpredictor;
 
-import org.jsoup.*;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 public abstract class Webscraper {
 	private final String URL;
@@ -14,8 +15,17 @@ public abstract class Webscraper {
 	public String getUrl() {
 		return this.URL;
 	}
+		
+	public Document getDocument(){
+		try {
+			return Jsoup.connect(URL).get();
+		}catch(Exception e) {
+			System.out.println("Unable to access url: " + URL);
+			System.exit(1);
+			return null;
+		}
+	}
 	
-	public abstract Stock getHistory(String ticker);
-	
+	public abstract StockHistory getHistory();
 	
 }

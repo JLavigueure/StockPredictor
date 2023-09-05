@@ -3,11 +3,11 @@ package stockpredictor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Stock {
+public class StockHistory {
 	private List<StockDay> history;
 	
 	//--- Constructors ---
-	public Stock() {
+	public StockHistory() {
 		history = new ArrayList<>();
 	}
 	
@@ -19,5 +19,9 @@ public class Stock {
 	//--- Modifiers ---
 	public void setHistory(List<StockDay> history) {
 		this.history = history;
+	}
+	
+	public void addDay(StockDay day) {
+		history.add(day);
 	}
 }

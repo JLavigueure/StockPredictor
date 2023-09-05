@@ -9,9 +9,17 @@ public class StockDay {
 	
 	//--- Constructors ---
 	public StockDay(LocalDate date) {
+		this(date, 0, 0, 0, 0, 0, 0);
+	}
+	
+	public StockDay(LocalDate date, double open, double high, double low, double close, double adjClose, int volume) {
 		this.date = date;
-		open = high = low = close = adjClose = 0;
-		volume = 0;
+		this.open = open;
+		this.high = high;
+		this.low = low;
+		this.close = close;
+		this.adjClose = adjClose;
+		this.volume = volume;
 	}
 	
 	//--- Accessors ---
