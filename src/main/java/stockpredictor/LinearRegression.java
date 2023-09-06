@@ -94,12 +94,12 @@ public class LinearRegression {
 
 	//Returns linear regression equation only
 	public String toString() {
-		return ("y = " + slope + "x + " + yIntercept);
+		return ("f(x) = " + String.format("%.2f", slope) + "x + " + String.format("%.2f", yIntercept));
 	}
 	
 	//Returns linear regression, r squared and Mean squared error
 	public String toStringFullInfo() {
-		return toString() + "\nMean Squared Error: " + mse + ", R-Squared: " + rSqrd;
+		return toString() + "\nMean Squared Error: " + String.format("%.4f", mse) + "\nR-Squared: " + String.format("%.4f", rSqrd);
 	}
 	
 	public boolean equals(Object o) {
@@ -111,4 +111,22 @@ public class LinearRegression {
 				&& this.mse == b.mse 
 				&& this.rSqrd == b.rSqrd);	
 	}
+	
+	//Returns a rating of 1-10 on how much it is recommended to buy this stock based off given day
+	public int calculateBuyScore(StockDay day) {
+		int score = 0;
+		if(slope > 0) score+=4;
+		if(day.getAdjClose() < yIntercept - mse) {
+			if(rSqrd > .7) score +=6;
+			if(rSqrd > .55) score +=4;
+			if(rSqrd > .4) score +=2;
+		}
+		if(day.getAdjClose() < yIntercept) {
+			if(rSqrd > .7) score +=5;
+			if(rSqrd > .55) score +=3;
+			if(rSqrd > .4) score +=1;
+		}
+		return score;
+	}
+
 }
