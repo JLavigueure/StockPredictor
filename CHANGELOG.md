@@ -1,0 +1,21 @@
+- add ui
+- Change string outputs to 2 decimals, add buy score method
+- Modified StockHistory class to store ticker String
+- created tests for LinearRegression.java
+- added field accessors and fixed error in MSE method
+- added ability generate linear regression, rsquared and mse
+- added documentation
+- refactored Algorith.java to LinearRegression.java and added calculate method to calculate linearRegression
+- added documentation
+- Fixed bugs when encountering dividends and missing volume values
+- added ability to partition history
+- added toString method
+- created Main.java
+- added Jama dependency for matrix math
+- added ability to export list of certain data (highs, lows, volumes, etc.)
+- removed getUrl as it inherits getUrl from Webscraper and added getTicker method
+- removed unneccesary code and TODO note
+- changed getUrl to call super.getUrl
+- refactored Stock -> StockHistory and added ability to build StockHistory from Yahoo webscraper
+- init commit
+- init commit
