@@ -42,15 +42,33 @@ public class LinearRegression {
 			//set up y matrix with values top to bottom
 			yMatrix.set(i, 0, yValues.get(i));
 		}
-		//(X^T * X)^-1 * X^T * Y
-		Matrix xTransposeX = xMatrix.transpose().times(xMatrix);
-		Matrix xTransposeY = xMatrix.transpose().times(yMatrix);
-		Matrix result = xTransposeX.inverse().times(xTransposeY);
-		double slope = result.get(1, 0);
-		double yIntercept = result.get(0, 0);
+		double slope, yIntercept;
+		try {
+			//(X^T * X)^-1 * X^T * Y
+			Matrix xTransposeX = xMatrix.transpose().times(xMatrix);
+			Matrix xTransposeY = xMatrix.transpose().times(yMatrix);
+			Matrix result = xTransposeX.inverse().times(xTransposeY);
+			slope = result.get(1, 0);
+			yIntercept = result.get(0, 0);
+		}catch (Exception e) {
+			//Matrix is singular
+			Double sumY, sumX, sumXY, sumX2;
+			sumY = sumX = sumXY = sumX2 = 0.0;
+			int x = 0;
+			for(Double y: yValues) {
+				sumY += y;
+				sumXY += y*x;
+				sumX2 += Math.pow(x, 2);
+				sumX+=x++;
+			}
+			
+			slope = (x*sumXY - sumX*sumY)/ (x*sumX2 - Math.pow(sumX, 2));
+			yIntercept = (sumY - slope*sumX) / x;
+		}
 		double mse = MeanSquaredError(slope, yIntercept, yValues);
 		double rSqrd = rSquared(slope, yIntercept, yValues);
 		return new LinearRegression(slope, yIntercept, mse, rSqrd);
+
 	}
 	
 	//Returns the average of values

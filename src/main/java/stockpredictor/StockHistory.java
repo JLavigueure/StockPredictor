@@ -77,7 +77,7 @@ public class StockHistory {
 	
 	//Returns a new StockHistory obj containing only the past x days
 	public StockHistory getPastXDays(int x) {
-		return new StockHistory(ticker, history.subList(0, x));
+		return new StockHistory(ticker, history.subList(history.size()-x, history.size()));
 	}
 	
 	public StockHistory getPast3Days() {
@@ -92,11 +92,11 @@ public class StockHistory {
 	public StockHistory getPastDaysUntil(LocalDate date) {
 		if(history.isEmpty()) return null;
 		ArrayList<StockDay> out = new ArrayList<>();
-		int i = 0;
-		StockDay day = history.get(i++);
-		while(date.isBefore(day.getDate())) {
+		int i = history.size()-1;
+		StockDay day = history.get(i--);
+		while(date.isBefore(day.getDate()) && i >= 0) {
 			out.add(day);
-			day = history.get(i++);
+			day = history.get(i--);
 		}
 		return new StockHistory(ticker, out);
 	}
