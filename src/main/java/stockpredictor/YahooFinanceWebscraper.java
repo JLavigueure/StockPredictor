@@ -32,11 +32,11 @@ public class YahooFinanceWebscraper extends Webscraper{
 			//date, open, high, low, close, adjclose, volume
 			if(data.text().equals("") || !isDate(data.get(0).text()) || data.get(1).text().contains("Dividend")) continue;
 			LocalDate date = parseDateField(data.get(0).text());
-			double open = Double.valueOf(data.get(1).text());
-			double high = Double.valueOf(data.get(2).text());
-			double low = Double.valueOf(data.get(3).text());
-			double close = Double.valueOf(data.get(4).text());
-			double adjClose = Double.valueOf(data.get(5).text());
+			double open = Double.valueOf(data.get(1).text().replace("", ""));
+			double high = Double.valueOf(data.get(2).text().replace("", ""));
+			double low = Double.valueOf(data.get(3).text().replace("", ""));
+			double close = Double.valueOf(data.get(4).text().replace("", ""));
+			double adjClose = Double.valueOf(data.get(5).text().replace("", ""));
 			int volume = 0;
 			if(data.size() >= 7) 
 				volume = Integer.valueOf(data.get(6).text().replace(",", ""));
