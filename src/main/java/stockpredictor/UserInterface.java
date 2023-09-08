@@ -24,7 +24,7 @@ public class UserInterface {
 			start();
 			return;
 		}
-		LinearRegression model = LinearRegression.calculate(stock.getPast3Months().getClosings());
+		LinearRegression model = LinearRegression.calculate(stock.getPast3Months().getAdjClosings());
 		System.out.println("                           5 Day History         \n                    -------------------------------");
 		System.out.println(stock.getPast5Days());
 		
