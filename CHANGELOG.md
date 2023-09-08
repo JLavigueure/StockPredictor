@@ -1,3 +1,9 @@
+- changed LinearRegression to use adjClosing
+- Reverse order of StockHistory days to fix incorrect regression. Add alternate equation for singular matrix
+- fix bug related to reading doubles when printed with commas
+- Merge branch 'main' of https://github.com/JLavigueure/StockPredictor
+- change to version 1, fix mainClass tag
+- Create CHANGELOG.md
 - add ui
 - Change string outputs to 2 decimals, add buy score method
 - Modified StockHistory class to store ticker String
