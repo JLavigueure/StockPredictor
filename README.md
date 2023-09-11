@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/JLavigueure/StockPredictor">
-    <img src="" alt="Logo" width="80" height="80">
+    <img src="images/linearregression.png" alt="Logo" width="120" height="120">
   </a>
 
   <h3 align="center">Stock Predictor</h3>
@@ -26,11 +26,11 @@
 
 <div align="center">
   <a href="href="https://github.com/JLavigueure/StockPredictor">
-    <img src="" alt="Stock chart" width="500">
+    <img src="images/StockPredictorUsage.gif" alt="Stock chart" width="700">
   </a>
 </div>
 
-Stock Predictor is a webscraper and linear regression model program. It takes a stock ticker, i.e AMZN, MSFT, TSLA, etc. as input, and scrapes all recent market data from YahooFinance of the provided ticker. Stock Predictor then uses matrix algebra to caclulate the linear regression model of closing price for the past 90 days and returns that model along with related statistics such as R-Squared and Mean Squared Error. Finally Stock Predictor prints a buy score between 1 and 10, rating how strongly it recommends buying the stock at this time.
+Stock Predictor is a webscraper and linear regression model program. It takes a stock ticker, i.e AMZN, MSFT, TSLA, etc. as input, and scrapes all recent market data from YahooFinance for the given stock. Stock Predictor then calculates the linear regression model of closing price for the past 90 days and prints the regression model, r squared, and mean squared error. Finally Stock Predictor prints a buy score between 1 and 10, rating how strongly it recommends buying the stock at this time.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -39,8 +39,10 @@ Stock Predictor is a webscraper and linear regression model program. It takes a 
 * ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 * ![Apache Maven](https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white)
 * <a href="https://github.com/jhy/jsoup">Jsoup</a>
-* <a href="https://github.com/cstroe/jama">Jama</a>
 * <a href="https://github.com/junit-team">JUnit</a>
+
+### Skills
+Webscraping, Object oriented programming(OOP), Data analysis
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -71,16 +73,6 @@ Stock Predictor is a webscraper and linear regression model program. It takes a 
    ```sh
    java -jar target/stockpredictor-1.0.0.jar
    ```
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- USAGE EXAMPLES -->
-## Usage
-<div align="center">
-  <a href="https://github.com/JLavigueure/StockPredictor">
-    <img src="" alt="Usage" width="800">
-  </a>
-</div>
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->

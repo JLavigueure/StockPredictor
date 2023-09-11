@@ -1,3 +1,10 @@
+- add gif for readme.txt
+- change linear regression formula, fix getPastDaysUntil method returning reverse order
+- Update README.md
+- Merge branch 'main' of https://github.com/JLavigueure/StockPredictor
+- add readme.txt images
+- Create README.md
+- Update CHANGELOG.md
 - changed LinearRegression to use adjClosing
 - Reverse order of StockHistory days to fix incorrect regression. Add alternate equation for singular matrix
 - fix bug related to reading doubles when printed with commas
