@@ -2,8 +2,6 @@ package stockpredictor;
 
 import java.util.List;
 
-import Jama.Matrix;
-
 public class LinearRegression {
 	private double slope;
 	private double yIntercept;
@@ -32,43 +30,33 @@ public class LinearRegression {
 	
 	//Returns LinearRegression object of given y values, and x values incrementing by 1.
 	public static LinearRegression calculate(List<Double> yValues) {
-		//init matrices
-		Matrix xMatrix = new Matrix(yValues.size(), 2);
-		Matrix yMatrix = new Matrix(yValues.size(), 1);
-		for(int i = 0; i < xMatrix.getRowDimension(); i++) {
-			//set up x matrix, all 1s in left column, increment by 1 descending in right column
-			xMatrix.set(i, 1, i);
-			xMatrix.set(i, 0, 1);
-			//set up y matrix with values top to bottom
-			yMatrix.set(i, 0, yValues.get(i));
+		//X values are 0 (inclusive) to yValues.size() (exclusive)
+		int[] xValues = new int[yValues.size()];
+		for(int i = 0; i < yValues.size(); i++) 
+			xValues[i] = i;
+		
+		double yAvg = average(yValues);
+		double xAvg = average(xValues);
+		
+		//Calculate slope
+		double numerator = 0;
+		double denominator = 0;
+		for (int i = 0; i < yValues.size(); i++) {
+			double xDelta = xValues[i] - xAvg;
+			double yDelta = yValues.get(i) - yAvg;
+			double xDeltaSqrd = Math.pow(xDelta, 2);
+			numerator +=xDelta*yDelta;
+			denominator+=xDeltaSqrd;
 		}
-		double slope, yIntercept;
-		try {
-			//(X^T * X)^-1 * X^T * Y
-			Matrix xTransposeX = xMatrix.transpose().times(xMatrix);
-			Matrix xTransposeY = xMatrix.transpose().times(yMatrix);
-			Matrix result = xTransposeX.inverse().times(xTransposeY);
-			slope = result.get(1, 0);
-			yIntercept = result.get(0, 0);
-		}catch (Exception e) {
-			//Matrix is singular
-			Double sumY, sumX, sumXY, sumX2;
-			sumY = sumX = sumXY = sumX2 = 0.0;
-			int x = 0;
-			for(Double y: yValues) {
-				sumY += y;
-				sumXY += y*x;
-				sumX2 += Math.pow(x, 2);
-				sumX+=x++;
-			}
-			
-			slope = (x*sumXY - sumX*sumY)/ (x*sumX2 - Math.pow(sumX, 2));
-			yIntercept = (sumY - slope*sumX) / x;
-		}
-		double mse = MeanSquaredError(slope, yIntercept, yValues);
-		double rSqrd = rSquared(slope, yIntercept, yValues);
-		return new LinearRegression(slope, yIntercept, mse, rSqrd);
-
+		double slope = numerator/denominator; //Negative since values are reversed
+		
+		//Calculate y intercept
+		double yIntercept = yAvg - slope*xAvg;
+		
+		double mse = meanSquaredError(slope, yIntercept, yValues);
+		double rSquared = rSquared(slope, yIntercept, yValues);
+		
+		return new LinearRegression(slope, yIntercept, mse, rSquared);
 	}
 	
 	//Returns the average of values
@@ -77,6 +65,14 @@ public class LinearRegression {
 		for(double d : values) 
 			sum+=d;
 		return sum/values.size();
+	}
+	
+	//Returns the average of values
+	public static double average(int[] values) {
+		int sum = 0;
+		for(int i : values) 
+			sum+=i;
+		return ((double)sum)/values.length;
 	}
 	
 	//Returns the rsquared of given model (y=mx+b) and actual values
@@ -97,7 +93,7 @@ public class LinearRegression {
 	}
 	
 	//Returns the Mean squared error of given model (y=mx+b) and actual values
-	private static double MeanSquaredError(double m, double b, List<Double> values) {
+	private static double meanSquaredError(double m, double b, List<Double> values) {
 		double sum = 0;
 		for(int i = 0; i < values.size(); i++) {
 			//get predicted value

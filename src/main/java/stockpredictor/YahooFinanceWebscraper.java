@@ -2,7 +2,6 @@ package stockpredictor;
 
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.HashMap;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -43,7 +42,7 @@ public class YahooFinanceWebscraper extends Webscraper{
 				volume = Integer.valueOf(data.get(6).text().replace(",", ""));
 			stock.addDay(new StockDay(date, open, high, low, close, adjClose, volume));
 		}
-		Collections.reverse(stock.getHistory()); //reverse so newest dates are at the end of list
+		Collections.reverse(stock.getHistory());
 		return stock;
 	}
 	

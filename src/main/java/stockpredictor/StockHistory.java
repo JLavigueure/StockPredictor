@@ -2,6 +2,7 @@ package stockpredictor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class StockHistory {
@@ -98,6 +99,7 @@ public class StockHistory {
 			out.add(day);
 			day = history.get(i--);
 		}
+		Collections.reverse(out);
 		return new StockHistory(ticker, out);
 	}
 	
@@ -122,6 +124,7 @@ public class StockHistory {
 		out.append(toStringHeader());
 		for(StockDay day : history) 
 			out.append(day + "\n");
+		out.append(toStringHeader());
 		return out.toString();
 	}
 	
